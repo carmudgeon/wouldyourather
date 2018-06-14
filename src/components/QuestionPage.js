@@ -7,7 +7,6 @@ class QuestionPage extends Component {
     render() {
         const {id} = this.props.match.params
 
-        console.log(id)
         return (
             <div>
                 <h3> Selected Question </h3>

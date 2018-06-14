@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Question from './Question'
-import authedUser from "../reducers/authedUser";
 
 class Dashboard extends Component {
 
@@ -44,10 +43,20 @@ class Dashboard extends Component {
     }
 }
 
+function unansweredQuestion(questions, id, user){
+    const votes = questions[id].optionOne.votes.concat(questions[id].optionTwo.votes)
+    return votes.length == 0 || !votes.includes(user)
+}
+
+function answeredQuestion(questions, id, user){
+    const votes = questions[id].optionOne.votes.concat(questions[id].optionTwo.votes)
+    return votes.length != 0 && votes.includes(user)
+}
+
 function mapStateToProps({authedUser, questions}) {
 
-    const unansweredQuestions = (authedUser === null) ? [] : Object.keys(questions).filter(q => (!questions[q].optionOne.votes.includes(authedUser) && !questions[q].optionTwo.votes.includes(authedUser))).sort((a, b) => (questions[b].timestamp - questions[a].timestamp))
-    const answeredQuestions = (authedUser === null) ? [] : Object.keys(questions).filter(q => (questions[q].optionOne.votes.includes(authedUser) || questions[q].optionTwo.votes.includes(authedUser))).sort((a, b) => (questions[b].timestamp - questions[a].timestamp))
+    const unansweredQuestions = (authedUser === null) ? [] : Object.keys(questions).filter(q => (unansweredQuestion(questions, q, authedUser))).sort((a, b) => (questions[b].timestamp - questions[a].timestamp))
+    const answeredQuestions = (authedUser === null) ? [] : Object.keys(questions).filter(q => (answeredQuestion(questions, q, authedUser))).sort((a, b) => (questions[b].timestamp - questions[a].timestamp))
     return {
         unanswered: unansweredQuestions,
         answered: answeredQuestions,

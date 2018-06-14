@@ -15,6 +15,14 @@ export function getInitialData () {
   }))
 }
 
+export function getUsers () {
+    return Promise.all([
+        _getUsers()
+    ]).then(([users]) => ({
+        users
+    }))
+}
+
 export function saveQuestion (info) {
   return _saveQuestion(info)
 }

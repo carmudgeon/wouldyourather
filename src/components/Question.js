@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 
 class Question extends Component {
 
@@ -12,19 +12,21 @@ class Question extends Component {
     };
 
     render() {
-        const {question, authedUser} = this.props
+        const {question} = this.props
+
+        if (question === undefined) {
+            return <p>This question doesn't exist</p>
+        }
 
         return (
             <li>
+                <Link
+                    to={`/questions/${question.id}`}>
                 <span>
                     Would you
                     rather <b>"{question.optionOne.text}"</b> or <b>"{question.optionTwo.text}"</b>? {this.formatDate(question.timestamp)}
-
-                    <Link
-                        to={`/questions/${question.id}`}>
-                        Answer
-                    </Link>
                 </span>
+                </Link>
             </li>
         )
     }
@@ -37,4 +39,4 @@ function mapStateToProps({questions, authedUser}, {id}) {
     }
 }
 
-export default connect(mapStateToProps)(Question)
+export default withRouter(connect(mapStateToProps)(Question))
