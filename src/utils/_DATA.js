@@ -163,7 +163,7 @@ export function _saveQuestion (question) {
                 ...questions,
                 [formattedQuestion.id]: formattedQuestion
             }
-debugger
+
             res(formattedQuestion)
         }, 1000)
     })
