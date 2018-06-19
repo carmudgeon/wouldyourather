@@ -6,14 +6,29 @@ class QuestionPage extends Component {
 
     render() {
         const {id} = this.props.match.params
+        const {authedUser} = this.props
+        let content = <div>Please login</div>
+
+        if (authedUser !== null) {
+            content = <div>
+                <h3> Selected Question </h3>
+                <Question id={id}/>
+            </div>
+        }
 
         return (
             <div>
-                <h3> Selected Question </h3>
-                <Question id={id}/>
+                {content}
             </div>
         )
     }
 }
 
-export default connect()(QuestionPage)
+function mapStateToProps({authedUser}) {
+
+    return {
+        authedUser
+    }
+}
+
+export default connect(mapStateToProps)(QuestionPage)

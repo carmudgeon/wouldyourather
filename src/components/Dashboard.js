@@ -21,10 +21,11 @@ class Dashboard extends Component {
 
         let content = <div>Please login</div>
 
-        if(authedUser != null) {
+        if (authedUser != null) {
             content = <div>
                 <h3 className='center'
-                    onClick={(e) => this.toggleQuestions(showingUnansweredQuestions)}> {title}</h3>
+                    onClick={(e) => this.toggleQuestions(showingUnansweredQuestions)}
+                style={{cursor: 'pointer'}}> {title}</h3>
 
                 <ul className='dashboard-list'>
                     {currentQuestions.map((id) => (
@@ -43,14 +44,14 @@ class Dashboard extends Component {
     }
 }
 
-function unansweredQuestion(questions, id, user){
+function unansweredQuestion(questions, id, user) {
     const votes = questions[id].optionOne.votes.concat(questions[id].optionTwo.votes)
-    return votes.length == 0 || !votes.includes(user)
+    return votes.length === 0 || !votes.includes(user)
 }
 
-function answeredQuestion(questions, id, user){
+function answeredQuestion(questions, id, user) {
     const votes = questions[id].optionOne.votes.concat(questions[id].optionTwo.votes)
-    return votes.length != 0 && votes.includes(user)
+    return votes.length !== 0 && votes.includes(user)
 }
 
 function mapStateToProps({authedUser, questions}) {

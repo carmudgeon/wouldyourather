@@ -5,18 +5,20 @@ import {setAuthedUser} from "../actions/authedUser";
 class Login extends Component {
 
     handleUserSelection = (event) => {
-        this.props.dispatch(setAuthedUser(event.target.value))
+        const user = event.target.value === '' ? null:event.target.value
+
+        this.props.dispatch(setAuthedUser(user))
     }
 
 
-    render(){
+    render() {
         const {users, authedUser} = this.props
-        const value = (authedUser === null)?'': authedUser
+        const value = (authedUser === null) ? '' : authedUser
 
         return (
             <div className='book-shelf-changer'>
                 <select value={value} onChange={(e) => this.handleUserSelection(e)}>
-                    <option value='' disabled>Login</option>
+                    <option value=''>Login</option>
                     {users !== undefined && (users.map((u) => (
                         <option key={u} value={u}>{u}</option>
                     )))}

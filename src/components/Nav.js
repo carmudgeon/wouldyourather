@@ -23,7 +23,7 @@ class Nav extends Component {
                             Leader Board
                         </NavLink>
                     </li>
-                    <li> <Login></Login> </li>
+                    <li><Login></Login></li>
                 </ul>
             </nav>
         )
