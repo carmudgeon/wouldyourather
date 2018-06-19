@@ -1,24 +1,27 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {handleAddQuestion} from '../actions/questions'
+import { Redirect } from 'react-router-dom'
 
 class AddQuestion extends Component {
 
     state = {
         optionOne: '',
-        optionTwo: ''
+        optionTwo: '',
+        toHome: false
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
 
-        const { optionOne, optionTwo} = this.state
-        const { dispatch, authedUser } = this.props
+        const {optionOne, optionTwo} = this.state
+        const {dispatch, authedUser} = this.props
 
         dispatch(handleAddQuestion({optionOne, optionTwo, authedUser}))
         this.setState(() => ({
             optionOne: '',
-            optionTwo: ''
+            optionTwo: '',
+            toHome: true
         }))
     }
 
@@ -35,12 +38,18 @@ class AddQuestion extends Component {
     }
 
     render() {
+        const {authedUser} = this.props
+        const {optionOne, optionTwo, toHome} = this.state
 
-        const {optionOne, optionTwo} = this.state
+        if (toHome === true) {
+            return <Redirect to='/' />
+        }
 
-        return (
-            <div>
-                <h3 className='center'>Add New Question</h3>
+        let content = <div>Please login</div>
+
+        if (authedUser !== null) {
+            content = <div>
+                <h3 className='center'>Would you rather ?</h3>
                 <form className='add-question' onSubmit={this.handleSubmit}>
                     <input
                         type="text"
@@ -62,8 +71,21 @@ class AddQuestion extends Component {
                     </button>
                 </form>
             </div>
+        }
+
+        return (
+            <div>
+                {content}
+            </div>
         )
     }
 }
 
-export default connect()(AddQuestion)
+function mapStateToProps({authedUser}) {
+
+    return {
+        authedUser
+    }
+}
+
+export default connect(mapStateToProps)(AddQuestion)

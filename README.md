@@ -1,10 +1,28 @@
 # Would You Rather Project
 
-This is the starter code for the final assessment project for Udacity's React & Redux course.
+This is the project for the final assesment, the initial code was taken from the chirper project.
 
-The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
+#### Steps to install
 
-Using the provided starter code, you'll build a React/Redux front end for the application. We recommend using the [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
+1) yarn install
+2) yarn start
+3) that's it you may open your browser at: http://localhost:3000/
+
+4) Once in the dashboard, you'll see the title [] Unanswered questions, you should click on it in order to toggle between answered and unanswered polls
+
+5) there is no 404 support, since i am allways validating the login status and if i try to go to a non existent page the page will reload and everything is reset
+
+##### Note: There is a small mod in _DATA.js file as the users were not beign asigned the newly created questions...
+
+```
+users = {
+    ...users,
+    [formattedQuestion.author]: {
+        ...users[formattedQuestion.author],
+        questions: users[formattedQuestion.author].questions.concat([formattedQuestion.id])
+    }
+}
+```
 
 ## Data
 
@@ -94,7 +112,3 @@ Your code will talk to the database via 4 methods:
 | authedUser | String | The id of the user who answered the question|
 | qid | String | The id of the question that was answered|
 | answer | String | The option the user selected. The value should be either `"optionOne"` or `"optionTwo"`|
-
-## Contributing
-
-This repository is the starter code for *all* Udacity students. Therefore, we most likely will not accept pull requests. For details, check out [CONTRIBUTING.md](https://github.com/udacity/reactnd-project-would-you-rather-starter/blob/master/CONTRIBUTING.md).

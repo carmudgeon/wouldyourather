@@ -115,23 +115,23 @@ let questions = {
     },
 }
 
-function generateUID () {
+function generateUID() {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
-export function _getUsers () {
+export function _getUsers() {
     return new Promise((res, rej) => {
         setTimeout(() => res({...users}), 1000)
     })
 }
 
-export function _getQuestions () {
+export function _getQuestions() {
     return new Promise((res, rej) => {
         setTimeout(() => res({...questions}), 1000)
     })
 }
 
-function formatQuestion ({ optionOne, optionTwo, author }) {
+function formatQuestion({optionOne, optionTwo, author}) {
     return {
         id: generateUID(),
         timestamp: Date.now(),
@@ -147,14 +147,22 @@ function formatQuestion ({ optionOne, optionTwo, author }) {
     }
 }
 
-export function _saveQuestion (question) {
+/**
+ *
+ *  NOTE: I modified this function as the created question es not being assosiated with the user
+ *  that created the question...
+ * @param question
+ * @returns {Promise<any>}
+ * @private
+ */
+export function _saveQuestion(question) {
     return new Promise((res, rej) => {
         const formattedQuestion = formatQuestion(question)
 
         setTimeout(() => {
             users = {
                 ...users,
-                [formattedQuestion.author] : {
+                [formattedQuestion.author]: {
                     ...users[formattedQuestion.author],
                     questions: users[formattedQuestion.author].questions.concat([formattedQuestion.id])
                 }
@@ -169,7 +177,7 @@ export function _saveQuestion (question) {
     })
 }
 
-export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+export function _saveQuestionAnswer({authedUser, qid, answer}) {
     return new Promise((res, rej) => {
         setTimeout(() => {
             users = {
