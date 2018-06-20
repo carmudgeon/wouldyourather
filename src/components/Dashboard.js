@@ -16,8 +16,8 @@ class Dashboard extends Component {
         const {showingUnansweredQuestions} = this.state
         const {unanswered, answered, authedUser} = this.props
 
-        let currentQuestions = (showingUnansweredQuestions) ? unanswered : answered
-        let title = (showingUnansweredQuestions) ? '[  ] Unanswered Questions' : '[x] Answered Questions'
+        const currentQuestions = (showingUnansweredQuestions) ? unanswered : answered
+        const title = (showingUnansweredQuestions) ? '[  ] Unanswered Questions' : '[x] Answered Questions'
 
         let content = <div>Please login</div>
 
