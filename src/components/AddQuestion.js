@@ -3,13 +3,15 @@ import {connect} from 'react-redux'
 import {handleAddQuestion} from '../actions/questions'
 import { Redirect } from 'react-router-dom'
 
+const defaultState = {
+    optionOne: '',
+    optionTwo: '',
+    toHome: false
+}
+
 class AddQuestion extends Component {
 
-    state = {
-        optionOne: '',
-        optionTwo: '',
-        toHome: false
-    }
+    state = defaultState
 
     handleSubmit = (e) => {
         e.preventDefault()
@@ -19,8 +21,7 @@ class AddQuestion extends Component {
 
         dispatch(handleAddQuestion({optionOne, optionTwo, authedUser}))
         this.setState(() => ({
-            optionOne: '',
-            optionTwo: '',
+            ...defaultState,
             toHome: true
         }))
     }
@@ -42,7 +43,7 @@ class AddQuestion extends Component {
         const {optionOne, optionTwo, toHome} = this.state
 
         if (toHome === true) {
-            return <Redirect to='/' />
+            return <Redirect to='/dashboard' />
         }
 
         let content = <div>Please login</div>
