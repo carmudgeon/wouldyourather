@@ -3,8 +3,9 @@ import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
 import {handleAnswerQuestion} from '../actions/questions';
 
-class Question extends Component {
+import {formatDate} from '../utils/shared';
 
+class Question extends Component {
 
     handleAnswer = (e, id, answer) => {
         e.preventDefault()
@@ -18,12 +19,6 @@ class Question extends Component {
 
         }))
     }
-
-    formatDate(timestamp) {
-        const d = new Date(timestamp)
-        const time = d.toLocaleTimeString('en-US')
-        return time.substr(0, 5) + time.slice(-2) + ' | ' + d.toLocaleDateString()
-    };
 
     render() {
         const {question, authedUser, avatarURL, numberOfUsers} = this.props
@@ -84,7 +79,7 @@ class Question extends Component {
                             <div style={{
                                 fontSize: "small",
                                 color: 'grey'
-                            }}>created at: {this.formatDate(question.timestamp)}</div>
+                            }}>created at: {formatDate(question.timestamp)}</div>
                              <div style={{
                                  fontSize: "small",
                                  color: 'grey'

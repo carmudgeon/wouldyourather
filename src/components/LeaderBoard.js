@@ -10,10 +10,14 @@ class LeaderBoard extends Component {
 
     render() {
         const {users, leaderBoard, authedUser} = this.props
-        let content = <div>Please login</div>
 
         if (authedUser !== null) {
-            content = <div>
+            return (
+                <div>Please login</div>
+            )
+        }
+        return (
+            <div>
                 {leaderBoard.map((u) => (
                     <div key={users[u].id}>
                         <div style={{
@@ -27,12 +31,6 @@ class LeaderBoard extends Component {
 
 
                 ))}
-            </div>
-        }
-        return (
-
-            <div>
-                {content}
             </div>
         )
     }
